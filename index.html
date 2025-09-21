@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LegalNewsIndia - Law News</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div class="logo-area" aria-label="Site header">
+    <span class="logo" aria-label="Scales of justice icon">⚖️</span>
+    <h1 class="sitename" style="display:inline;" aria-label="Site name">LegalNewsIndia</h1>
+    <button class="dark-toggle-btn" id="darkToggleBtn" aria-label="Toggle dark mode">Dark Mode</button>
+  </div>
+  <input 
+    type="text" 
+    id="searchBar" 
+    placeholder="Search AI legal news..." 
+    autocomplete="off"
+    aria-label="Search bar for legal news AI"
+    style="margin-bottom:1.5em;"
+  />
+  <div id="statusMsg" aria-live="polite"></div>
+  <div id="news-ai-list" aria-label="AI summarized news list">Loading AI summaries...</div>
+  <script src="app.js"></script>
+</body>
+</html>
