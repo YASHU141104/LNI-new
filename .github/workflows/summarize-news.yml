@@ -1,0 +1,32 @@
+name: Summarize and Store Legal News
+
+on:
+  schedule:
+    # Run every 4 hours
+    - cron: '0 */4 * * *'
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  summarize-news:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install transformers torch feedparser supabase
+
+    - name: Run Summarizer Script
+      env:
+        SUPABASE_URL: ${{ https://xyiuhejewfyqqcxxiqcd.supabase.co}}
+        SUPABASE_KEY: ${{ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5aXVoZWpld2Z5cXFjeHhpcWNkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODM4Nzc1MywiZXhwIjoyMDczOTYzNzUzfQ.4W1RckwzXwGhI6F-T01y33P1HiR9xI0sK4g2__FkXTQ }}
+      run: |
+        python summarize_and_store.py
