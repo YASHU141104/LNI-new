@@ -9,20 +9,18 @@ darkBtn.onclick = () => setDarkMode(!document.body.classList.contains("dark-mode
 (()=>{ if(localStorage.getItem("dark-mode")) setDarkMode(true); })();
 
 // ---- SUPABASE SETUP ----
-const supabase_url = "https://xyiuhejewfyqqcxxiqcd.supabase.co";
-const supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5aXVoZWpld2Z5cXFjeHhpcWNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgzODc3NTMsImV4cCI6MjA3Mzk2Mzc1M30.D2B70xr82QMgA8AoB3Aeq0AgzMeYzW6peZ1D5gpBdyc";
+const supabase_url = "https://xyiuhejewfyqqcxxiqcd.supabase.co"; // <--- your project
+const supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5aXVoZWpld2Z5cXFjeHhpcWNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgzODc3NTMsImV4cCI6MjA3Mzk2Mzc1M30.D2B70xr82QMgA8AoB3Aeq0AgzMeYzW6peZ1D5gpBdyc"; // <-- your anon key
 const supabase = window.supabase.createClient(supabase_url, supabase_key);
 
 // ---- FETCH AI-SUMMARIZED NEWS ----
 async function getAISummarizedNews(keyword = "") {
-  // Build the base query
   let query = supabase
     .from('news_ai')
     .select('*')
     .order('created_at', { ascending: false })
     .limit(100);
 
-  // Fetch data
   let { data: news, error } = await query;
 
   if (error) {
