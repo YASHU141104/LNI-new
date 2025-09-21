@@ -1,0 +1,96 @@
+body {
+  background: #f4f7fa;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 2em 10vw;
+  transition: background 0.4s, color 0.4s;
+}
+body.dark-mode { background: #181a1b; color: #e7e7e7; }
+.logo-area {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  gap: 0.7em;
+}
+.logo {
+  font-size: 2.3em;
+  border-radius: 50%;
+  background: #244e86;
+  color: #fff;
+  width: 2em;
+  height: 2em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.sitename { font-size: 1.7em; font-weight: 700; color: #244e86; }
+.dark-mode .sitename { color: #ffca28; }
+.dark-toggle-btn {
+  margin-left: auto;
+  background: #244e86;
+  color: #fff;
+  border: none;
+  padding: 0.4em 1em;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1em;
+  transition: background 0.2s;
+}
+.dark-mode .dark-toggle-btn { background: #ffca28; color: #111; }
+#searchBar {
+  width: 340px;
+  padding: 1em;
+  font-size: 1.1em;
+  border: 2px solid #4670ab;
+  border-radius: 8px;
+  box-shadow: 0 2px 14px #00336615;
+  margin-bottom: 2em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+  color: #121212;
+}
+.dark-mode #searchBar { background: #232324; color: #fff; border-color: #888; }
+#statusMsg {
+  color: #b00;
+  margin-bottom: 1em;
+  text-align: center;
+  font-size: 1.07em;
+}
+#news-ai-list {
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.news-card {
+  background: white;
+  box-shadow: 0 2px 12px #244e8620;
+  border-radius: 12px;
+  padding: 1.2em;
+  margin-bottom: 1.3em;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s, color 0.3s;
+  border-left: 4px solid #244e86;
+}
+.dark-mode .news-card,
+.dark-mode #news-ai-list { background: #232324 !important; color: #ffca28;}
+.news-content a {
+  color: #1155cc;
+  font-weight: 600;
+  text-decoration: underline;
+  font-size: 1.17em;
+}
+h2 { color: #244e86; margin-top: 0; }
+.dark-mode h2 { color: #ffca28; }
+h4 { color: #666; margin-top: 0.4em; }
+p { color: #212121; margin: 0.8em 0 0 0; }
+.news-card .source { font-size: 0.91em; color: #888; margin-top: 0.6em;}
+.news-card .source a { color: #244e86; }
+.dark-mode .news-card .source a { color: #ffca28; }
+@media (max-width: 650px) {
+  body { padding: 1em 0.2em; }
+  #searchBar { width: 98%; }
+}
