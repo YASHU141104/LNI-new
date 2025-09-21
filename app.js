@@ -1,5 +1,5 @@
 // ---- DARK MODE LOGIC ----
-const darkBtn = document.getElementById("darkToggleBtn"); 
+const darkBtn = document.getElementById("darkToggleBtn");
 function setDarkMode(state) {
   document.body.classList.toggle("dark-mode", state);
   localStorage.setItem("dark-mode", state ? "1" : "");
@@ -9,24 +9,32 @@ darkBtn.onclick = () => setDarkMode(!document.body.classList.contains("dark-mode
 (()=>{ if(localStorage.getItem("dark-mode")) setDarkMode(true); })();
 
 // ---- SUPABASE SETUP ----
-const supabase_url = "https://xyiuhejewfyqqcxxiqcd.supabase.co"; 
-const supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5aXVoZWpld2Z5cXFjeHhpcWNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgzODc3NTMsImV4cCI6MjA3Mzk2Mzc1M30.D2B70xr82QMgA8AoB3Aeq0AgzMeYzW6peZ1D5gpBdyc"; 
+const supabase_url = "https://xyiuhejewfyqqcxxiqcd.supabase.co";
+const supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5aXVoZWpld2Z5cXFjeHhpcWNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgzODc3NTMsImV4cCI6MjA3Mzk2Mzc1M30.D2B70xr82QMgA8AoB3Aeq0AgzMeYzW6peZ1D5gpBdyc";
 const supabase = window.supabase.createClient(supabase_url, supabase_key);
 
 // ---- FETCH AI-SUMMARIZED NEWS ----
-async function getAISummarizedNews(keyword="") {
+async function getAISummarizedNews(keyword = "") {
+  // Build the base query
   let query = supabase
     .from('news_ai')
     .select('*')
     .order('created_at', { ascending: false })
     .limit(100);
-  if (keyword) {
-    query = query.ilike('headline', `%${keyword}%`);
-  }
+
+  // Fetch data
   let { data: news, error } = await query;
+
   if (error) {
-    document.getElementById("news-ai-list").innerHTML = "Error loading AI news.";
+    document.getElementById("news-ai-list").innerHTML = "Error loading AI news: " + error.message;
     return;
+  }
+  if (keyword) {
+    const key = keyword.toLowerCase();
+    news = news.filter(item =>
+      (item.headline && item.headline.toLowerCase().includes(key)) ||
+      (item.body && item.body.toLowerCase().includes(key))
+    );
   }
   renderAINews(news);
 }
@@ -49,7 +57,8 @@ function renderAINews(news) {
       </div>
     `;
   });
-  document.getElementById("news-ai-list").innerHTML = html || "<p>No AI summaries available yet.</p>";
+  document.getElementById("news-ai-list").innerHTML =
+    html || "<p>No AI summaries available yet.</p>";
 }
 
 // ---- SEARCH EVENT ----
